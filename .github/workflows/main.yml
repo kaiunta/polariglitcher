@@ -1,0 +1,23 @@
+name: Deploy to FTP
+
+on:
+  push:
+    branches:
+      - develop  # Trigger the workflow on pushes to the develop branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Upload to FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          server: 37.233.94.118  # Replace with your FTP server address
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./  # Directory to upload (modify if needed)
+          server-dir: /public_html/polariglitcher  # Remote directory to upload to
